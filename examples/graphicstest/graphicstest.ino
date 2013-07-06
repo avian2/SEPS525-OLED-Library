@@ -2,10 +2,6 @@
 #include <Adafruit_GFX.h>
 #include <SPI.h>
 
-// IMPORTANT: Adafruit_TFTLCD LIBRARY MUST BE SPECIFICALLY
-// CONFIGURED FOR EITHER THE TFT SHIELD OR THE BREAKOUT BOARD.
-// SEE RELEVANT COMMENTS IN Adafruit_TFTLCD.h FOR SETUP.
-
 // Assign human-readable names to some common 16-bit color values:
 #define	BLACK   0x0000
 #define	BLUE    0x001F
@@ -17,10 +13,6 @@
 #define WHITE   0xFFFF
 
 SEPS525_OLED tft;
-
-// If using the shield, all control and data lines are fixed, and
-// a simpler declaration can optionally be used:
-// Adafruit_TFTLCD tft;
 
 void setup(void) {
   Serial.begin(9600);
@@ -78,14 +70,11 @@ void setup(void) {
   delay(500);
 
   Serial.println(F("Done!"));
+  
+  testText();
 }
 
 void loop(void) {
-  for(uint8_t rotation=0; rotation<4; rotation++) {
-    tft.setRotation(rotation);
-    testText();
-    delay(2000);
-  }
 }
 
 unsigned long testFillScreen() {
@@ -108,20 +97,9 @@ unsigned long testText() {
   tft.println(1234.56);
   tft.setTextColor(RED);    tft.setTextSize(3);
   tft.println(0xDEADBEEF, HEX);
-  tft.println();
   tft.setTextColor(GREEN);
   tft.setTextSize(5);
   tft.println("Groop");
-  tft.setTextSize(2);
-  tft.println("I implore thee,");
-  tft.setTextSize(1);
-  tft.println("my foonting turlingdromes.");
-  tft.println("And hooptiously drangle me");
-  tft.println("with crinkly bindlewurdles,");
-  tft.println("Or I will rend thee");
-  tft.println("in the gobberwarts");
-  tft.println("with my blurglecruncheon,");
-  tft.println("see if I don't!");
   return micros() - start;
 }
 
